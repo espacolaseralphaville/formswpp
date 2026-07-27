@@ -60,7 +60,7 @@
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ tipo: 'popup', nome: nome || 'Não informado', telefone: tel, interesse: 'Popup landing page', dispositivo: _dispositivo, primeira_visita: _primeiraVisita ? 'Sim' : 'Nao', como_saiu: 'Fechou' })
+            body: JSON.stringify({ tipo: 'popup', nome: nome || 'Não informado', telefone: tel, interesse: 'Popup landing page', dispositivo: _dispositivo, primeira_visita: _primeiraVisita ? 'Sim' : 'Nao', como_saiu: 'Fechou', utm_source: getUTM('utm_source'), utm_campaign: getUTM('utm_campaign'), utm_medium: getUTM('utm_medium'), utm_content: getUTM('utm_content') })
           }).catch(function(){});
         }
         popup.classList.remove('ativo');
@@ -81,12 +81,13 @@
           alert('Por favor, preencha seu nome e WhatsApp.');
           return;
         }
-        fbq('track', 'Lead');
+        var leadEventId = gerarEventId();
+        fbq('track', 'Lead', {}, { eventID: leadEventId });
         fetch(_url, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ tipo: 'popup', nome: nome, telefone: tel, interesse: 'Popup landing page', dispositivo: _dispositivo, primeira_visita: _primeiraVisita ? 'Sim' : 'Nao', como_saiu: 'Enviar' })
+          body: JSON.stringify({ tipo: 'popup', nome: nome, telefone: tel, interesse: 'Popup landing page', dispositivo: _dispositivo, primeira_visita: _primeiraVisita ? 'Sim' : 'Nao', como_saiu: 'Enviar', event_id: leadEventId, event_source_url: window.location.href, fbp: getCookie('_fbp'), fbc: getCookie('_fbc'), utm_source: getUTM('utm_source'), utm_campaign: getUTM('utm_campaign'), utm_medium: getUTM('utm_medium'), utm_content: getUTM('utm_content') })
         }).catch(function(){});
         popup.classList.remove('ativo');
         window.open('https://wa.me/5511992259772?text=Ol%C3%A1!%20Tenho%20interesse%20nas%202%20sess%C3%B5es%20gr%C3%A1tis%20de%20depila%C3%A7%C3%A3o%20a%20laser%20da%20Espa%C3%A7olaser%20Alphaville!', '_blank');
@@ -728,6 +729,10 @@
       return match ? match[2] : null;
     }
 
+    function getUTM(param) {
+      return new URLSearchParams(window.location.search).get(param) || '';
+    }
+
     function gerarEventId() {
       return 'evt_' + Date.now() + '_' + Math.random().toString(36).substring(2, 10);
     }
@@ -818,7 +823,7 @@
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ tipo: 'popup', nome: nome || 'Não informado', telefone: tel, interesse: 'Popup landing page', dispositivo: _dispositivo, primeira_visita: _primeiraVisita ? 'Sim' : 'Nao', como_saiu: 'Fechou' })
+            body: JSON.stringify({ tipo: 'popup', nome: nome || 'Não informado', telefone: tel, interesse: 'Popup landing page', dispositivo: _dispositivo, primeira_visita: _primeiraVisita ? 'Sim' : 'Nao', como_saiu: 'Fechou', utm_source: getUTM('utm_source'), utm_campaign: getUTM('utm_campaign'), utm_medium: getUTM('utm_medium'), utm_content: getUTM('utm_content') })
           }).catch(function(){});
         }
         popup.classList.remove('ativo');
@@ -839,12 +844,13 @@
           alert('Por favor, preencha seu nome e WhatsApp.');
           return;
         }
-        fbq('track', 'Lead');
+        var leadEventId = gerarEventId();
+        fbq('track', 'Lead', {}, { eventID: leadEventId });
         fetch(_url, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ tipo: 'popup', nome: nome, telefone: tel, interesse: 'Popup landing page', dispositivo: _dispositivo, primeira_visita: _primeiraVisita ? 'Sim' : 'Nao', como_saiu: 'Enviar' })
+          body: JSON.stringify({ tipo: 'popup', nome: nome, telefone: tel, interesse: 'Popup landing page', dispositivo: _dispositivo, primeira_visita: _primeiraVisita ? 'Sim' : 'Nao', como_saiu: 'Enviar', event_id: leadEventId, event_source_url: window.location.href, fbp: getCookie('_fbp'), fbc: getCookie('_fbc'), utm_source: getUTM('utm_source'), utm_campaign: getUTM('utm_campaign'), utm_medium: getUTM('utm_medium'), utm_content: getUTM('utm_content') })
         }).catch(function(){});
         popup.classList.remove('ativo');
         window.open('https://wa.me/5511992259772?text=Ol%C3%A1!%20Tenho%20interesse%20nas%202%20sess%C3%B5es%20gr%C3%A1tis%20de%20depila%C3%A7%C3%A3o%20a%20laser%20da%20Espa%C3%A7olaser%20Alphaville!', '_blank');
